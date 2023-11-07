@@ -48,9 +48,8 @@ btn_write.addEventListener("click", async () => {
   try {
     const ndef = new NDEFReader();
 
-    // Write URL/URI
-
-    const url = "https://www.google.com";
+    const url =
+      "https://translate.google.com/?hl=vi&sl=en&tl=vi&text=An%20error%20has%20occurred%20during%20the%20writing%20process&op=translate";
 
     const urlRecord = new NDEFRecord({
       recordType: "url",
