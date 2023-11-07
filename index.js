@@ -47,10 +47,15 @@ btn_write.addEventListener("click", async () => {
 
   try {
     const ndef = new NDEFReader();
-    await ndef.write(
-      "https://translate.google.com/?hl=vi&sl=en&tl=vi&text=An%20error%20has%20occurred%20during%20the%20writing%20process&op=translate"
-    );
-    alert("> Message written");
+
+    // write url
+    const url = "https://www.google.com";
+
+    const urlRecord = NDEFRecord.createURI(url);
+
+    await ndef.write(urlRecord);
+
+    alert(`> Written ${url}`);
   } catch (error) {
     alert("Argh! " + error);
   }
