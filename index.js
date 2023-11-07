@@ -17,17 +17,17 @@ btn_scan.addEventListener("click", async () => {
     });
 
     ndef.addEventListener("reading", ({ message, serialNumber }) => {
-      show_data.innerHTML = serialNumber;
+      alert(serialNumber);
 
       for (const record of message.records) {
-        show_data.innerHTML = record.data.toString();
+        alert(record.data.toString());
 
         const buffer = record.data.buffer;
         const dataView = new DataView(buffer);
-        show_data.innerHTML = dataView.getUint8(0);
+        alert(dataView.getUint8(0));
 
         const json = JSON.parse(record.data);
-        show_data.innerHTML = JSON.stringify(json, null, 2);
+        alert(JSON.stringify(json, null, 2));
       }
     });
   } catch (error) {
