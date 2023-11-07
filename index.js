@@ -48,22 +48,9 @@ btn_write.addEventListener("click", async () => {
   try {
     const ndef = new NDEFReader();
 
-    const url =
-      "https://translate.google.com/?hl=vi&sl=en&tl=vi&text=An%20error%20has%20occurred%20during%20the%20writing%20process&op=translate";
-
-    const urlData = new TextEncoder().encode(url);
-
-    const urlRecord = new NDEFRecord({
-      recordType: "mime",
-      mediaType: "text/plain",
-      data: urlData,
-    });
-
-    const message = new NDEFMessage({
-      records: [urlRecord],
-    });
-
-    await ndef.write(message);
+    await ndef.write(
+      "https://translate.google.com/?hl=vi&sl=en&tl=vi&text=An%20error%20has%20occurred%20during%20the%20writing%20process&op=translate"
+    );
 
     alert("> Message written");
   } catch (error) {
