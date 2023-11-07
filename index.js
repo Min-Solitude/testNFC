@@ -17,30 +17,11 @@ btn_scan.addEventListener("click", async () => {
     };
     ndef.onreading = (event) => {
       alert("NDEF message read.");
-      show_data.innerHTML = `> Records: (${event.message.records.length})\n`;
-      show_data.innerHTML = `> Records: (${event.message.records})\n`;
-      for (const record of event.message.records) {
-        const buffer = record.data.buffer;
-        const dataView = new DataView(buffer);
-        const dataBytes = dataView.getUint8(0, 8);
-        show_data.innerHTML += "> Record data:  " + dataBytes + "\n";
-      }
+      // I want to show value text in record.data
+      show_data.innerHTML = event.message.records[0].data;
+      alert("show_data: " + show_data.innerHTML);
+      ndef.close();
     };
-
-    // ndef.addEventListener("readingerror", () => {
-    //   alert("Argh! Cannot read data from the NFC tag. Try another one?");
-    // });
-
-    // ndef.addEventListener("reading", ({ message, serialNumber }) => {
-    //   // show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
-    //   for (const record of message.records) {
-    //     const buffer = record.data.buffer;
-    //     const dataView = new DataView(buffer);
-    //     const dataBytes = dataView.getUint8(0, 8);
-    //     show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
-    //     show_data.innerHTML += "> Record data:  " + dataBytes + "\n";
-    //   }
-    // });
   } catch (error) {
     alert("Argh! " + error);
   }
