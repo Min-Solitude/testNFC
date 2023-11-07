@@ -17,6 +17,7 @@ btn_scan.addEventListener("click", async () => {
     ndef.addEventListener("reading", ({ message, serialNumber }) => {
       alert(`> Serial Number: ${serialNumber}`);
       alert(`> Records: (${message.records.length})`);
+      alert(`> Records: (${message.records[0].data})`);
     });
   } catch (error) {
     alert("Argh! " + error);
