@@ -19,11 +19,11 @@ btn_scan.addEventListener("click", async () => {
     ndef.addEventListener("reading", ({ message, serialNumber }) => {
       // show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
       for (const record of message.records) {
-        // show_data.innerHTML += "> Record type:  " + record.recordType + "\n";
-        // show_data.innerHTML += "> MIME type:    " + record.mediaType + "\n";
-        // show_data.innerHTML += "> Record id:    " + record.id + "\n";
-        show_data.innerHTML +=
-          "> Record data:  " + record.data.toString() + "\n";
+        const buffer = record.data.buffer;
+        const dataView = new DataView(buffer);
+        const dataBytes = dataView.getUint8(0, 8);
+        show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
+        show_data.innerHTML += "> Record data:  " + dataBytes + "\n";
       }
     });
   } catch (error) {
