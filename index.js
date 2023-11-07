@@ -49,7 +49,7 @@ btn_write.addEventListener("click", async () => {
     const ndef = new NDEFReader();
 
     // Xác định dữ liệu cần ghi
-    const text = "2837183719319";
+    const text = "https://www.nefy.website/192381092381092";
     const data = new TextEncoder().encode(text);
 
     // Ghi dữ liệu vào thẻ
@@ -62,7 +62,7 @@ btn_write.addEventListener("click", async () => {
       ],
     });
 
-    console.log("Wrote data to tag!");
+    alert("Wrote data to tag!");
   } catch (error) {
     console.log("Argh! Failed to write tag", error);
   }
