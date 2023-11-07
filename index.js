@@ -23,21 +23,17 @@ btn_scan.addEventListener("click", async () => {
       for (const record of message.records) {
         if (record.recordType === "text") {
           const textBytes = new Uint8Array(record.data.buffer);
+          const text = new TextDecoder("utf-8").decode(textBytes);
+          show_data.innerHTML = text;
+          alert(`> Text: ${text}`);
+        } else {
+          const textBytes = new Uint8Array(record.data.buffer);
 
           const text = new TextDecoder("utf-8").decode(textBytes);
 
           show_data.innerHTML = text;
 
           alert(`> Text: ${text}`);
-        } else if (record.recordType === "url") {
-          const url = record.data;
-          show_data.innerHTML = url;
-          alert(`> URL: ${url}`);
-        } else if (record.mediaType === "application/json") {
-          const json = JSON.parse(record.data);
-          alert(`> JSON: ${json}`);
-        } else {
-          alert(`> Unknown record type`);
         }
       }
     });
