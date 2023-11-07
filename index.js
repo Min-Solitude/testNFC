@@ -48,14 +48,11 @@ btn_write.addEventListener("click", async () => {
   try {
     const ndef = new NDEFReader();
 
-    // write url
-    const url = "https://www.google.com";
+    // write URL
 
-    const urlRecord = NDEFRecord.createURI(url);
+    await ndef.write("https://www.google.com");
 
-    await ndef.write(urlRecord);
-
-    alert(`> Written ${url}`);
+    alert("> Message written");
   } catch (error) {
     alert("Argh! " + error);
   }
