@@ -2,6 +2,8 @@ const btn_scan = document.getElementById("btn_scan");
 const btn_write = document.getElementById("btn_write");
 const btn_read = document.getElementById("btn_read");
 
+const show_data = document.getElementById("Show_data");
+
 btn_scan.addEventListener("click", async () => {
   alert("User clicked scan button");
 
@@ -15,9 +17,13 @@ btn_scan.addEventListener("click", async () => {
     });
 
     ndef.addEventListener("reading", ({ message, serialNumber }) => {
-      alert(`> Serial Number: ${serialNumber}`);
-      alert(`> Records: (${message.records.length})`);
-      alert(`> Records: (${message.records[0].data})`);
+      show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
+      for (const record of message.records) {
+        show_data.innerHTML += "> Record type:  " + record.recordType + "\n";
+        show_data.innerHTML += "> MIME type:    " + record.mediaType + "\n";
+        show_data.innerHTML += "> Record id:    " + record.id + "\n";
+        show_data.innerHTML += "> Record data:  " + record.data + "\n";
+      }
     });
   } catch (error) {
     alert("Argh! " + error);
