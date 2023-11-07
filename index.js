@@ -16,15 +16,14 @@ btn_scan.addEventListener("click", async () => {
       alert("Argh! Cannot read data from the NFC tag. Try another one?");
     });
 
-    ndef.addEventListener("reading", ({ message, serialNumber, record }) => {
+    ndef.addEventListener("reading", ({ message, serialNumber }) => {
       alert(`> Serial Number: ${serialNumber}`);
-      alert(`> Records: (${record})`);
 
       for (const record of message.records) {
         alert(`> Record type:  ${record.recordType}`);
-        alert(`> MIME type:    ${record.mediaType}`);
-        alert(`> Record id:    ${record.id}`);
-        alert(`> Record data:  ${record.data}`);
+        alert(`> MIME type:    ${record.recordValue}`);
+        alert(`> MIME type:    ${record.recordRawValue}`);
+        alert(`> Record data:  ${JSON.stringify(record.data)}`);
       }
     });
   } catch (error) {
