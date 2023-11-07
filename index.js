@@ -52,10 +52,9 @@ btn_write.addEventListener("click", async () => {
 
     const url = "https://www.google.com";
 
-    const urlData = new TextEncoder().encode(url);
     const urlRecord = new NDEFRecord({
       recordType: "url",
-      data: urlData,
+      data: url,
     });
 
     const message = new NDEFMessage([urlRecord]);
