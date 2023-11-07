@@ -57,7 +57,9 @@ btn_write.addEventListener("click", async () => {
       data: url,
     });
 
-    const message = new NDEFMessage([urlRecord]);
+    const message = new NDEFMessage({
+      records: [urlRecord],
+    });
 
     await ndef.write(message);
 
