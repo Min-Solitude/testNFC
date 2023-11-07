@@ -17,13 +17,17 @@ btn_scan.addEventListener("click", async () => {
     });
 
     ndef.addEventListener("reading", ({ message, serialNumber }) => {
-      alert(`> Serial Number: ${serialNumber}`);
+      show_data.innerHTML = serialNumber;
 
       for (const record of message.records) {
-        alert(`> Record type:  ${record.recordType}`);
-        alert(`> MIME type:    ${record.recordValue}`);
-        alert(`> MIME type:    ${record.recordRawValue}`);
-        alert(`> Record data:  ${JSON.stringify(record.data)}`);
+        show_data.innerHTML = record.data.toString();
+
+        const buffer = record.data.buffer;
+        const dataView = new DataView(buffer);
+        show_data.innerHTML = dataView.getUint8(0);
+
+        const json = JSON.parse(record.data);
+        show_data.innerHTML = JSON.stringify(json, null, 2);
       }
     });
   } catch (error) {
