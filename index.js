@@ -49,7 +49,7 @@ btn_write.addEventListener("click", async () => {
     const ndef = new NDEFReader();
 
     // Xác định dữ liệu cần ghi
-    const text = "https://www.nefy.website/192381092381092";
+    const text = "https://www.nefy.website";
     const data = new TextEncoder().encode(text);
 
     // Ghi dữ liệu vào thẻ
