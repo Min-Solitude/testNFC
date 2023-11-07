@@ -20,11 +20,18 @@ btn_scan.addEventListener("click", async () => {
       alert(serialNumber);
 
       for (const record of message.records) {
-        const text = record.data.toString();
-        alert(`> Content: ${text}`);
-
-        const url = record.data.toString();
-        alert(`> URL: ${url}`);
+        if (record.recordType === "text") {
+          const text = record.data.toString();
+          alert(`> Content: ${text}`);
+        } else if (record.recordType === "url") {
+          const url = record.data.toString();
+          alert(`> URL: ${url}`);
+        } else if (record.mediaType === "application/json") {
+          const json = JSON.parse(record.data);
+          alert(`> JSON: ${json}`);
+        } else {
+          alert(`> Unknown record type`);
+        }
       }
     });
   } catch (error) {
@@ -37,8 +44,13 @@ btn_write.addEventListener("click", async () => {
 
   try {
     const ndef = new NDEFReader();
-    await ndef.write("Hello world!");
-    alert("> Message written");
+    try {
+      await ndef.write({
+        records: [{ recordType: "url", data: "http://example.com/" }],
+      });
+    } catch {
+      console.log("Write failed :-( try again.");
+    }
   } catch (error) {
     alert("Argh! " + error);
   }
