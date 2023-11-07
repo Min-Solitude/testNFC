@@ -45,26 +45,19 @@ btn_scan.addEventListener("click", async () => {
 btn_write.addEventListener("click", async () => {
   alert("User clicked write button");
 
+  const ndef = new NDEFReader();
   try {
-    const ndef = new NDEFReader();
-
-    // Xác định dữ liệu cần ghi
-    const text = "https://www.nefy.website";
-    const data = new TextEncoder().encode(text);
-
-    // Ghi dữ liệu vào thẻ
     await ndef.write({
       records: [
         {
           recordType: "url",
-          data: data,
+          data: "https://www.youtube.com/watch?v=f_iQRO5BdCM&list=RDMMWM5hfgSr-zE&index=22",
         },
       ],
     });
-
-    alert("Wrote data to tag!");
-  } catch (error) {
-    alert("Argh! Failed to write tag", error);
+    alert("> Message written");
+  } catch {
+    alert("Write failed :-( try again.");
   }
 });
 
