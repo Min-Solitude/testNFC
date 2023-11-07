@@ -42,29 +42,16 @@ btn_scan.addEventListener("click", async () => {
   }
 });
 
-btn_write.addEventListener("click", async (e) => {
-  e.preventDefault();
+btn_write.addEventListener("click", async () => {
   alert("User clicked write button");
 
   try {
     const ndef = new NDEFReader();
-
-    // Xác định dữ liệu cần ghi
-    const text = "https://www.nefy.website";
-    const data = new TextEncoder().encode(text);
-
-    // Ghi dữ liệu vào thẻ
-    await ndef.write({
-      records: [
-        {
-          recordType: "url",
-          data: data,
-        },
-      ],
-    });
-
-    alert("Wrote data to tag!");
+    await ndef.write(
+      "https://translate.google.com/?hl=vi&sl=en&tl=vi&text=An%20error%20has%20occurred%20during%20the%20writing%20process&op=translate"
+    );
+    alert("> Message written");
   } catch (error) {
-    alert("Argh! Failed to write tag", error);
+    alert("Argh! " + error);
   }
 });
