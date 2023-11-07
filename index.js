@@ -56,7 +56,7 @@ btn_write.addEventListener("click", async () => {
     await ndef.write({
       records: [
         {
-          recordType: "text",
+          recordType: "url",
           data: data,
         },
       ],
