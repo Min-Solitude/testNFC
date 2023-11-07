@@ -27,8 +27,9 @@ btn_scan.addEventListener("click", async () => {
       // I want show url in card NFC
 
       const decoder = new TextDecoder(record.encoding);
-      show_data.innerHTML +=
-        "> Decoded data: " + decoder.decode(record.data) + "\n";
+      alert(decoder.decode(record.data));
+      //   show_data.innerHTML +=
+      //     "> Decoded data: " + decoder.decode(record.data) + "\n";
     });
   } catch (error) {
     alert("Argh! " + error);
