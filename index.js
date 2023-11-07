@@ -43,18 +43,20 @@ btn_scan.addEventListener("click", async () => {
 });
 
 btn_write.addEventListener("click", async () => {
-  alert("Người dùng đã nhấp vào nút ghi");
+  alert("User clicked write button");
 
   try {
     const ndef = new NDEFReader();
 
-    // Ghi URL
-    const urlRecord = new NDEFRecord("url", "https://www.google.com");
-    const message = new NDEFMessage([urlRecord]);
+    // write URL is URL/URL not TEXT
 
-    await ndef.write(message);
+    const url = "https://www.google.com";
 
-    alert("> Tin nhắn đã được ghi");
+    const urlRecord = ndef.uriRecord(url);
+
+    await ndef.write(urlRecord);
+
+    alert("> Message written");
   } catch (error) {
     alert("Argh! " + error);
   }
