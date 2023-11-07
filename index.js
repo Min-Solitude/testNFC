@@ -42,52 +42,29 @@ btn_scan.addEventListener("click", async () => {
   }
 });
 
-btn_write.addEventListener("click", async () => {
+btn_write.addEventListener("click", async (e) => {
+  e.preventDefault();
   alert("User clicked write button");
 
-  const ndef = new NDEFReader();
-  ndef.onreading = (event) => alert("We read a tag!", event);
-
-  function write(data, { timeout } = {}) {
-    return new Promise((resolve, reject) => {
-      const ctlr = new AbortController();
-      ctlr.signal.onabort = () => reject("Time is up, bailing out!");
-      setTimeout(() => ctlr.abort(), timeout);
-
-      ndef.addEventListener(
-        "reading",
-        (event) => {
-          ndef.write(data, { signal: ctlr.signal }).then(resolve, reject);
-        },
-        { once: true }
-      );
-    });
-  }
-
-  await ndef.scan();
   try {
-    // Let's wait for 5 seconds only.
-    await write(
-      "https://www.youtube.com/watch?v=f_iQRO5BdCM&list=RDMMWM5hfgSr-zE&index=22",
-      { timeout: 5_000 }
-    );
-  } catch (err) {
-    console.error("Something went wrong", err);
-  } finally {
-    console.log("We wrote to a tag!");
+    const ndef = new NDEFReader();
+
+    // Xác định dữ liệu cần ghi
+    const text = "https://www.nefy.website";
+    const data = new TextEncoder().encode(text);
+
+    // Ghi dữ liệu vào thẻ
+    await ndef.write({
+      records: [
+        {
+          recordType: "url",
+          data: data,
+        },
+      ],
+    });
+
+    alert("Wrote data to tag!");
+  } catch (error) {
+    alert("Argh! Failed to write tag", error);
   }
 });
-
-// btn_read.addEventListener("click", async () => {
-//   alert("User clicked make read-only button");
-
-//   try {
-//     const ndef = new NDEFReader();
-//     await ndef.makeReadOnly();
-//     alert("> NFC tag has been made permanently read-only");
-//   } catch (error) {
-//     alert("Argh! " + error);
-//   }
-// });
-
-// When click btn show_log will show the tab log in F12
