@@ -21,10 +21,12 @@ btn_scan.addEventListener("click", async () => {
 
       for (const record of message.records) {
         if (record.recordType === "text") {
-          const text = record.data.toString();
-          alert(`> Content: ${text}`);
+          // i want to show the text not [object]
+          show_data.innerHTML = record.data;
+          alert(`> Text: ${record.data}`);
         } else if (record.recordType === "url") {
-          const url = record.data.toString();
+          const url = record.data;
+          show_data.innerHTML = url;
           alert(`> URL: ${url}`);
         } else if (record.mediaType === "application/json") {
           const json = JSON.parse(record.data);
@@ -39,31 +41,31 @@ btn_scan.addEventListener("click", async () => {
   }
 });
 
-btn_write.addEventListener("click", async () => {
-  alert("User clicked write button");
+// btn_write.addEventListener("click", async () => {
+//   alert("User clicked write button");
 
-  try {
-    const ndef = new NDEFReader();
-    try {
-      await ndef.write({
-        records: [{ recordType: "url", data: "http://example.com/" }],
-      });
-    } catch {
-      console.log("Write failed :-( try again.");
-    }
-  } catch (error) {
-    alert("Argh! " + error);
-  }
-});
+//   try {
+//     const ndef = new NDEFReader();
+//     try {
+//       await ndef.write({
+//         records: [{ recordType: "url", data: "http://example.com/" }],
+//       });
+//     } catch {
+//       console.log("Write failed :-( try again.");
+//     }
+//   } catch (error) {
+//     alert("Argh! " + error);
+//   }
+// });
 
-btn_read.addEventListener("click", async () => {
-  alert("User clicked make read-only button");
+// btn_read.addEventListener("click", async () => {
+//   alert("User clicked make read-only button");
 
-  try {
-    const ndef = new NDEFReader();
-    await ndef.makeReadOnly();
-    alert("> NFC tag has been made permanently read-only");
-  } catch (error) {
-    alert("Argh! " + error);
-  }
-});
+//   try {
+//     const ndef = new NDEFReader();
+//     await ndef.makeReadOnly();
+//     alert("> NFC tag has been made permanently read-only");
+//   } catch (error) {
+//     alert("Argh! " + error);
+//   }
+// });
