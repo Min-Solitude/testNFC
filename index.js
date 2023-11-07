@@ -12,20 +12,35 @@ btn_scan.addEventListener("click", async () => {
     await ndef.scan();
     alert("> Scan started");
 
-    ndef.addEventListener("readingerror", () => {
-      alert("Argh! Cannot read data from the NFC tag. Try another one?");
-    });
-
-    ndef.addEventListener("reading", ({ message, serialNumber }) => {
-      // show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
-      for (const record of message.records) {
+    ndef.onreadingerror = (event) => {
+      alert("Error! Cannot read data from the NFC tag. Try a different one?");
+    };
+    ndef.onreading = (event) => {
+      alert("NDEF message read.");
+      show_data.innerHTML = `> Records: (${event.message.records.length})\n`;
+      show_data.innerHTML = `> Records: (${event.message.records})\n`;
+      for (const record of event.message.records) {
         const buffer = record.data.buffer;
         const dataView = new DataView(buffer);
         const dataBytes = dataView.getUint8(0, 8);
-        show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
         show_data.innerHTML += "> Record data:  " + dataBytes + "\n";
       }
-    });
+    };
+
+    // ndef.addEventListener("readingerror", () => {
+    //   alert("Argh! Cannot read data from the NFC tag. Try another one?");
+    // });
+
+    // ndef.addEventListener("reading", ({ message, serialNumber }) => {
+    //   // show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
+    //   for (const record of message.records) {
+    //     const buffer = record.data.buffer;
+    //     const dataView = new DataView(buffer);
+    //     const dataBytes = dataView.getUint8(0, 8);
+    //     show_data.innerHTML = `> Serial Number: ${serialNumber}\n> Records: (${message.records.length})\n`;
+    //     show_data.innerHTML += "> Record data:  " + dataBytes + "\n";
+    //   }
+    // });
   } catch (error) {
     alert("Argh! " + error);
   }
