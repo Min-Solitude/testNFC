@@ -20,14 +20,11 @@ btn_scan.addEventListener("click", async () => {
       alert(serialNumber);
 
       for (const record of message.records) {
-        alert(record.data.toString());
+        const text = record.data.toString();
+        alert(`> Content: ${text}`);
 
-        const buffer = record.data.buffer;
-        const dataView = new DataView(buffer);
-        alert(dataView.getUint8(0));
-
-        const json = JSON.parse(record.data);
-        alert(JSON.stringify(json, null, 2));
+        const url = record.data.toString();
+        alert(`> URL: ${url}`);
       }
     });
   } catch (error) {
