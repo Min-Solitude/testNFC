@@ -46,18 +46,35 @@ btn_write.addEventListener("click", async () => {
   alert("User clicked write button");
 
   const ndef = new NDEFReader();
-  try {
-    await ndef.write({
-      records: [
-        {
-          recordType: "url",
-          data: "https://www.youtube.com/watch?v=f_iQRO5BdCM&list=RDMMWM5hfgSr-zE&index=22",
+  ndef.onreading = (event) => alert("We read a tag!", event);
+
+  function write(data, { timeout } = {}) {
+    return new Promise((resolve, reject) => {
+      const ctlr = new AbortController();
+      ctlr.signal.onabort = () => reject("Time is up, bailing out!");
+      setTimeout(() => ctlr.abort(), timeout);
+
+      ndef.addEventListener(
+        "reading",
+        (event) => {
+          ndef.write(data, { signal: ctlr.signal }).then(resolve, reject);
         },
-      ],
+        { once: true }
+      );
     });
-    alert("> Message written");
-  } catch {
-    alert("Write failed :-( try again.");
+  }
+
+  await ndef.scan();
+  try {
+    // Let's wait for 5 seconds only.
+    await write(
+      "https://www.youtube.com/watch?v=f_iQRO5BdCM&list=RDMMWM5hfgSr-zE&index=22",
+      { timeout: 5_000 }
+    );
+  } catch (err) {
+    console.error("Something went wrong", err);
+  } finally {
+    console.log("We wrote to a tag!");
   }
 });
 
