@@ -3,6 +3,7 @@ const btn_write = document.getElementById("btn_write");
 const btn_read = document.getElementById("btn_read");
 
 const show_data = document.getElementById("Show_data");
+const show_log = document.getElementById("Show_log");
 
 btn_scan.addEventListener("click", async () => {
   alert("User clicked scan button");
@@ -21,9 +22,13 @@ btn_scan.addEventListener("click", async () => {
 
       for (const record of message.records) {
         if (record.recordType === "text") {
-          // i want to show the text not [object]
-          show_data.innerHTML = record.data;
-          alert(`> Text: ${record.data}`);
+          const textBytes = new Uint8Array(record.data.buffer);
+
+          const text = new TextDecoder("utf-8").decode(textBytes);
+
+          show_data.innerHTML = text;
+
+          alert(`> Text: ${text}`);
         } else if (record.recordType === "url") {
           const url = record.data;
           show_data.innerHTML = url;
@@ -69,3 +74,5 @@ btn_scan.addEventListener("click", async () => {
 //     alert("Argh! " + error);
 //   }
 // });
+
+// When click btn show_log will show the tab log in F12
