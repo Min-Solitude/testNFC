@@ -12,16 +12,21 @@ btn_scan.addEventListener("click", async () => {
     await ndef.scan();
     alert("> Scan started");
 
-    ndef.onreadingerror = (event) => {
-      alert("Error! Cannot read data from the NFC tag. Try a different one?");
-    };
-    ndef.onreading = (event) => {
-      alert("NDEF message read.");
-      // I want to show value text in record.data
-      show_data.innerHTML = event.message.records[0].data;
-      alert("show_data: " + show_data.innerHTML);
-      ndef.close();
-    };
+    ndef.addEventListener("readingerror", () => {
+      alert("Argh! Cannot read data from the NFC tag. Try another one?");
+    });
+
+    ndef.addEventListener("reading", ({ message, serialNumber, record }) => {
+      alert(`> Serial Number: ${serialNumber}`);
+      alert(`> Records: (${record})`);
+
+      for (const record of message.records) {
+        alert(`> Record type:  ${record.recordType}`);
+        alert(`> MIME type:    ${record.mediaType}`);
+        alert(`> Record id:    ${record.id}`);
+        alert(`> Record data:  ${record.data}`);
+      }
+    });
   } catch (error) {
     alert("Argh! " + error);
   }
