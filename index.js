@@ -1,6 +1,7 @@
 const id = new URLSearchParams(location.search).get("id");
 
 console.log(id); // 1
+console.log(typeof id); // 1
 
 const btn_scan = document.getElementById("btn_scan");
 const btn_write = document.getElementById("btn_write");
@@ -10,12 +11,10 @@ const show_data = document.getElementById("Show_data");
 const show_log = document.getElementById("Show_log");
 
 btn_scan.addEventListener("click", async () => {
-  alert("User clicked scan button");
-
   try {
     const ndef = new NDEFReader();
     await ndef.scan();
-    alert("> Scan started");
+    alert("Vui lòng đặt thẻ vào điện thoại");
 
     ndef.addEventListener("readingerror", () => {
       alert("Argh! Cannot read data from the NFC tag. Try another one?");
@@ -47,21 +46,17 @@ btn_scan.addEventListener("click", async () => {
 });
 
 btn_write.addEventListener("click", async () => {
-  alert("User clicked write button");
-
-  // I want to write a URL to the NFC
+  alert("Vui lòng đặt thẻ vào điện thoại");
 
   const ndef = new NDEFReader();
 
   await ndef.write({
-    records: [
-      { recordType: "url", data: "https://www.youtube.com/shorts/YTvUC3bIRpY" },
-    ],
+    records: [{ recordType: "text", data: id }],
   });
 
-  alert("> Message written");
+  alert("Truyền dữ liệu thành công");
 
   ndef.addEventListener("readingerror", () => {
-    alert("Argh! Cannot read data from the NFC tag. Try another one?");
+    alert("Địt mẹ lỗi! Vui lòng thử lại?");
   });
 });
