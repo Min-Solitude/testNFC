@@ -7,8 +7,6 @@ const btn_write = document.getElementById("btn_write");
 const start = document.getElementById("start");
 
 btn_write.addEventListener("click", async () => {
-  alert("Vui lòng chạm thẻ vào thiết bị");
-
   start.style = `
     display: flex;
     justify-content: center;
