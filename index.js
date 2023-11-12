@@ -1,3 +1,8 @@
+const searchParams = new URL(url).searchParams;
+const id = searchParams.get("id");
+
+console.log(id);
+
 const btn_scan = document.getElementById("btn_scan");
 const btn_write = document.getElementById("btn_write");
 const btn_read = document.getElementById("btn_read");
