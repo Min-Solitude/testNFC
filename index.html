@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./index.css">
-</head>
-<body>
-   <div style="width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <div>
-        <button id="btn_scan" style="font-size: 28px; padding: 10px 20px ; border-radius: 0.2rem; background-color: red; color: white; border: none;">
-            Scan NFC
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="wrapper_container">
+        <button id="btn_write">
+          Write NFC
         </button>
-    
-        <button id="btn_write" style="font-size: 28px; padding: 10px 20px ; border-radius: 0.2rem; background-color: blue; color: white; border: none;">
-            Write NFC
-        </button>
-    
-        <button id="btn_read" style="font-size: 28px; padding: 10px 20px ; border-radius: 0.2rem; background-color: yellowgreen; color: white; border: none;">
-            Read NFC
-        </button>
-
-        <button id="Show_log" style="font-size: 28px; padding: 10px 20px ; border-radius: 0.2rem; background-color: rebeccapurple; color: white; border: none;">
-            Show log
-        </button>
+        <div class="text_error">
+            <img src="https://i.pinimg.com/originals/b2/76/93/b276939d53dcd373ff2571ca455ea97c.gif" alt="">
+            <p >Vui lòng sử dụng thiết bị NFC</p>
+        </div>
+        <div id="start">
+            <div class="notice">
+                <div class="childNotice1">
+                    <div class="card">
+                        <ion-icon name="id-card-outline"></ion-icon>
+                    </div>
+                </div>
+                <p class="title">Vui lòng dí thẻ vào đây</p>
+            </div>
+        </div>
     </div>
-
-    <div id="Show_data"></div>
-</div>
-<script src="index.js"></script>
-</body>
+    <script src="index.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  </body>
 </html>

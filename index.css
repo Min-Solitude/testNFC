@@ -1,0 +1,190 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F9EEE5;
+}
+
+.wrapper_container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn_write {
+    appearance: button;
+    background-color: #1899D6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 20px;
+    margin: 0;
+    outline: none;
+    overflow: visible;
+    padding: 13px 19px;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+   }
+   
+   #btn_write:after {
+    background-clip: padding-box;
+    background-color: #1CB0F6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    bottom: -4px;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+   }
+   
+   #btn_write:main, #btn_write:focus {
+    user-select: auto;
+   }
+   
+   #btn_write:hover:not(:disabled) {
+    filter: brightness(1.1);
+   }
+   
+   #btn_write:disabled {
+    cursor: auto;
+   }
+   
+   #btn_write:active:after {
+    border-width: 0 0 0px;
+   }
+   
+   #btn_write:active {
+    padding-bottom: 10px;
+   }
+
+.text_error{
+    display: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+    position: relative;
+}
+
+.text_error p{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.2rem;
+    text-align: center;
+    background-color: white; 
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.5rem rgba(0,0,0,0.2);
+}
+
+#start{
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    background-color: #ffff;
+    transition: 0.5s ;
+}
+
+.notice{
+    width: 80%;
+    height: 50vh;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 0.5rem rgba(0,0,0,0.2);
+    position: relative;
+    border: 4px solid #00A9FF;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.title{
+    position: relative;
+    bottom: 5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #00A9FF;
+}
+
+.childNotice1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 12rem;
+    height: 12rem;
+    border-radius: 100rem;
+    background-color: #00A9FF;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    width: 5rem;
+    height: 7rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: cardUp 1s infinite;
+}
+
+.card ion-icon{
+    font-size: 3rem;
+    color: #00A9FF;
+}
+
+/* ANIMATION CARD UP AND DOWN */
+
+@keyframes cardUp {
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(3rem);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+/* IF SCREEN IS DESKTOP HIDDEN  */
+
+@media screen and (min-width: 768px) {
+    #btn_write{
+        display: none;
+    }
+    .text_error{
+        display: block;
+    }
+}
